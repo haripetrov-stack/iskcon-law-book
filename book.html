@@ -93,10 +93,15 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
 @media print { .no-print { display:none !important; } }
 </style>
 <style>
+.topbar { font-family: var(--sans); font-size: 0.88em; background: #1E2761; color: #CADCFC; padding: 8px 24px; display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+.topbar .topbar-title { color: #fff; margin-right: auto; }
+.topbar a { color: #D99A2B; text-decoration: none; }
+.topbar a:hover { text-decoration: underline; }
 @media (max-width: 640px) {
   header.cover { padding: 24px 16px 16px; }
   header.cover h1 { font-size: 1.6em; }
   .wrap { padding: 0 16px 60px; }
+  .topbar { padding: 6px 16px; gap: 14px; }
   .searchbar { padding: 8px 16px; }
   .searchbar input[type=search] { flex-basis: 100%; min-width: 0; }
   nav.toc { padding: 16px; }
@@ -114,6 +119,11 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
 </style>
 </head>
 <body>
+<div class="topbar no-print">
+  <span class="topbar-title">ISKCON Law, working draft</span>
+  <a href="index.html">About this draft</a>
+  <a href="iskcon-law-draft-2018-2026.pdf">PDF</a>
+</div>
 <header class="cover">
   <h1>ISKCON Law &mdash; Consolidated Working Draft</h1>
   <div class="subtitle">The 2018 ISKCON Law Book Update, extended with every published GBC resolution from the 2019 Annual General Meeting through 2026</div>
@@ -10555,6 +10565,15 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
 
   document.addEventListener('DOMContentLoaded', function() { build(); doSearch(); });
 })();
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var q = new URLSearchParams(location.search).get('q');
+  if (!q) return;
+  var input = document.getElementById('searchInput');
+  input.value = q;
+  input.dispatchEvent(new Event('input'));
+});
 </script>
 </body>
 </html>
