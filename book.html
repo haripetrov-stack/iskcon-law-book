@@ -113,7 +113,9 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
   .article { padding: 12px 12px 14px; }
   .node-body p, .article .body p { text-align: left; }
   body { overflow-wrap: anywhere; }
-  table.crosswalk-table, table.book-table { display: block; overflow-x: auto; }
+  table.crosswalk-table, table.book-table { display: block; overflow-x: auto; overflow-wrap: normal; }
+  table.crosswalk-table > tbody, table.book-table > tbody { display: table; border-collapse: collapse; }
+  table.crosswalk-table > tbody { width: 100%; min-width: 36rem; }
   footer.build { padding: 24px 16px 40px; }
 }
 </style>
