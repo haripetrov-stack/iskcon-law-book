@@ -16,9 +16,11 @@ EXTERNAL_REF = re.compile(
     r'|url\(\s*["\']?https?://', re.I)
 LOCAL_REF = re.compile(r'\b(?:href|src)="([^"]*)"')
 SKIP_REF = re.compile(r'^(?:https?:|mailto:|data:|javascript:|#)', re.I)
+TEMPLATE = re.compile(rb'<template class="chapter-src" data-chapter="[^"]*">(.*?)</template>', re.S)
+LIVE_ELEMENT_BUDGET = 2000
 
 
-def content_element(data):
+def content_inner(data):
     start = re.search(rb'<div\b[^>]*\bid="content"[^>]*>', data)
     if not start:
         return None
@@ -26,19 +28,28 @@ def content_element(data):
     for tag in re.finditer(rb'<div\b|</div\s*>', data[start.start():]):
         depth += 1 if tag.group().startswith(b'<div') else -1
         if depth == 0:
-            return data[start.start():start.start() + tag.end()]
+            return data[start.end():start.start() + tag.start()]
     return None
 
 
 def check_content_identical():
     if not ORIGINAL.is_file():
         return False, f'original not found: {ORIGINAL}'
-    ours = content_element((ROOT / 'book.html').read_bytes())
-    theirs = content_element(ORIGINAL.read_bytes())
+    ours = content_inner((ROOT / 'book.html').read_bytes())
+    theirs = content_inner(ORIGINAL.read_bytes())
     if ours is None or theirs is None:
         return False, '#content element not found in one of the files'
-    same = ours == theirs
-    return same, f'{len(ours):,} bytes in book.html, {len(theirs):,} bytes in the original'
+    templates = TEMPLATE.findall(ours)
+    joined = b''.join(templates)
+    return bool(templates) and joined == theirs, (
+        f'{len(templates)} chapter templates, {len(joined):,} bytes in book.html, {len(theirs):,} bytes in the original')
+
+
+def check_live_elements():
+    """Elements the browser builds at load: every tag in book.html outside the chapter templates."""
+    data = (ROOT / 'book.html').read_bytes()
+    live = len(re.findall(rb'<[a-zA-Z]', TEMPLATE.sub(b'', data)))
+    return live <= LIVE_ELEMENT_BUDGET, f'{live:,} elements outside templates, budget {LIVE_ELEMENT_BUDGET:,}'
 
 
 def check_no_external_requests(page):
@@ -63,7 +74,8 @@ def check_sizes():
 
 def main():
     checks = [
-        ('content identical to original', check_content_identical),
+        ('chapter templates identical to the original #content', check_content_identical),
+        ('live elements at load within budget', check_live_elements),
         *[(f'no external requests in {p}', lambda p=p: check_no_external_requests(p)) for p in PAGES],
         *[(f'local references exist in {p}', lambda p=p: check_local_refs(p)) for p in PAGES],
         ('.nojekyll', check_nojekyll),
