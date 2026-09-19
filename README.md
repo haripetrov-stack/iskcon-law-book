@@ -13,6 +13,7 @@ An unapproved working draft, generated automatically on 27 August 2026. Not revi
 - `index.html`: the landing page (what the draft is, status, buttons, three sample searches).
 - `book.html`: the draft itself, 1.2 MB, with the search built in. `book.html?q=succession` opens it with the search prefilled. The book text and the table of contents are the generated originals. The site adds one `<style>` block for phones and the top bar, a favicon, and one `<script>` that replaces the original search script (see below).
 - `tools/build_book.py`: builds `book.html` from the generated original in one command. Rerun it after every change to the original or to the site additions.
+- `--standalone OUT.html` writes the same lazy page without the site top bar, as one file that can be sent by e-mail and opened from disk.
 - `iskcon-law-draft-2018-2026.pdf`: the same draft as a PDF, 10 MB, 422 pages.
 - `.nojekyll`: tells GitHub Pages to serve the files as they are.
 - `tools/check.py`: the static check described below.
@@ -23,6 +24,7 @@ The original page put all 31 chapters into the DOM at once: 16,470 elements, and
 
 ```
 python tools/build_book.py
+python tools/build_book.py --standalone D:/path/to/iskcon-law-draft.html
 ```
 
 The script reads the original from the same default path as the check and takes another path as its first argument.

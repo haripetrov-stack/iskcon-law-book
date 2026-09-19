@@ -98,6 +98,7 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
 .topbar a { color: #D99A2B; text-decoration: none; }
 .topbar a:hover { text-decoration: underline; }
 .chapter-shell { padding: 26px 24px 10px; border-top: 3px double var(--line); }
+[id] { scroll-margin-top: 72px; }
 .chapter-shell .law-head { font-size: 1.7em; border-bottom: 2px solid var(--accent); padding-bottom: 6px; }
 .chapter-hint { font-family: var(--sans); font-size: 0.85em; color: var(--muted); margin: 8px 0 0; }
 @media (max-width: 640px) {
@@ -111,6 +112,7 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
   .toc-controls { float: none; margin: 0 0 10px; }
   nav.toc ol { padding-left: 14px; }
   .law-container.lvl1, .chapter-shell { padding: 20px 12px 8px; }
+  [id] { scroll-margin-top: 118px; }
   .law-container.lvl2, .law-container.lvl3, .law-container.lvl4, .law-container.lvl5, .law-container.lvl6 { padding-left: 10px; }
   .chapter-general-block { margin-left: 0; }
   .article { padding: 12px 12px 14px; }
@@ -10586,7 +10588,12 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
   var input = document.getElementById('searchInput');
   var chapters = [], idToChapter = {}, terms = [], articles = 0;
   var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) { if (e.isIntersecting) expand(idToChapter[e.target.id], false); });
+    var near = entries.filter(function(e) { return e.isIntersecting; }).sort(function(a, b) {
+      return a.boundingClientRect.top - b.boundingClientRect.top;
+    });
+    if (!near.length) return;
+    expand(idToChapter[near[0].target.id], false);
+    near.slice(1).forEach(function(e) { observer.unobserve(e.target); observer.observe(e.target); });
   }, { rootMargin: '600px 0px' });
 
   Array.prototype.forEach.call(document.querySelectorAll('template.chapter-src'), function(t) {

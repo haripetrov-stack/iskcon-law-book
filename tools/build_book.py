@@ -1,10 +1,12 @@
-"""Builds book.html from the generated original. Usage: python tools/build_book.py [path-to-original]"""
+"""Builds book.html from the generated original.
+Usage: python tools/build_book.py [path-to-original] [--standalone OUT.html]
+--standalone writes one sendable file without the site top bar (no links to index.html or the PDF)."""
 import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-ORIGINAL = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(
+ORIGINAL = Path(sys.argv[1]) if len(sys.argv) > 1 and not sys.argv[1].startswith('--') else Path(
     'D:/AI_OS/Repos/personal/elm-ai-presentation/law-book-output/00 iskcon-law-v6-2018-2026.html')
 
 FAVICON = ('<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 16 16\'%3E'
@@ -17,6 +19,7 @@ SITE_STYLE = """<style>
 .topbar a { color: #D99A2B; text-decoration: none; }
 .topbar a:hover { text-decoration: underline; }
 .chapter-shell { padding: 26px 24px 10px; border-top: 3px double var(--line); }
+[id] { scroll-margin-top: 72px; }
 .chapter-shell .law-head { font-size: 1.7em; border-bottom: 2px solid var(--accent); padding-bottom: 6px; }
 .chapter-hint { font-family: var(--sans); font-size: 0.85em; color: var(--muted); margin: 8px 0 0; }
 @media (max-width: 640px) {
@@ -30,6 +33,7 @@ SITE_STYLE = """<style>
   .toc-controls { float: none; margin: 0 0 10px; }
   nav.toc ol { padding-left: 14px; }
   .law-container.lvl1, .chapter-shell { padding: 20px 12px 8px; }
+  [id] { scroll-margin-top: 118px; }
   .law-container.lvl2, .law-container.lvl3, .law-container.lvl4, .law-container.lvl5, .law-container.lvl6 { padding-left: 10px; }
   .chapter-general-block { margin-left: 0; }
   .article { padding: 12px 12px 14px; }
@@ -55,7 +59,12 @@ RUNTIME_SCRIPT = """<script>
   var input = document.getElementById('searchInput');
   var chapters = [], idToChapter = {}, terms = [], articles = 0;
   var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) { if (e.isIntersecting) expand(idToChapter[e.target.id], false); });
+    var near = entries.filter(function(e) { return e.isIntersecting; }).sort(function(a, b) {
+      return a.boundingClientRect.top - b.boundingClientRect.top;
+    });
+    if (!near.length) return;
+    expand(idToChapter[near[0].target.id], false);
+    near.slice(1).forEach(function(e) { observer.unobserve(e.target); observer.observe(e.target); });
   }, { rootMargin: '600px 0px' });
 
   Array.prototype.forEach.call(document.querySelectorAll('template.chapter-src'), function(t) {
@@ -211,11 +220,12 @@ def lazy_chapters(data, eol):
     return data[:begin] + eol + ''.join(parts) + data[end:], len(parts)
 
 
-def build(data):
+def build(data, standalone=False):
     eol = '\r\n' if '\r\n' in data[:2000] else '\n'
     data = insert_after_line(data, '<title>', FAVICON, eol)
     data = insert_after_line(data, '</style>', SITE_STYLE, eol)
-    data = insert_after_line(data, '<body>', TOPBAR, eol)
+    if not standalone:
+        data = insert_after_line(data, '<body>', TOPBAR, eol)
     if data.count('<script') != 1:
         raise SystemExit(f'expected exactly one script in the original, found {data.count("<script")}')
     data = data[:data.index('<script>')] + RUNTIME_SCRIPT.replace('\n', eol) + data[data.index('</script>') + len('</script>'):]
@@ -223,9 +233,11 @@ def build(data):
 
 
 def main():
-    out, count = build(ORIGINAL.read_text(encoding='utf-8', newline=''))
-    (ROOT / 'book.html').write_text(out, encoding='utf-8', newline='')
-    print(f'book.html: {len(out.encode("utf-8")):,} bytes, {count} lazy chapters, from {ORIGINAL}')
+    standalone = '--standalone' in sys.argv
+    target = Path(sys.argv[sys.argv.index('--standalone') + 1]) if standalone else ROOT / 'book.html'
+    out, count = build(ORIGINAL.read_text(encoding='utf-8', newline=''), standalone)
+    target.write_text(out, encoding='utf-8', newline='')
+    print(f'{target.name}: {len(out.encode("utf-8")):,} bytes, {count} lazy chapters, from {ORIGINAL}')
 
 
 if __name__ == '__main__':
