@@ -97,6 +97,9 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
 .topbar .topbar-title { color: #fff; margin-right: auto; }
 .topbar a { color: #D99A2B; text-decoration: none; }
 .topbar a:hover { text-decoration: underline; }
+.chapter-shell { padding: 26px 24px 10px; border-top: 3px double var(--line); }
+.chapter-shell .law-head { font-size: 1.7em; border-bottom: 2px solid var(--accent); padding-bottom: 6px; }
+.chapter-hint { font-family: var(--sans); font-size: 0.85em; color: var(--muted); margin: 8px 0 0; }
 @media (max-width: 640px) {
   header.cover { padding: 24px 16px 16px; }
   header.cover h1 { font-size: 1.6em; }
@@ -107,7 +110,7 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
   nav.toc { padding: 16px; }
   .toc-controls { float: none; margin: 0 0 10px; }
   nav.toc ol { padding-left: 14px; }
-  .law-container.lvl1 { padding: 20px 12px 8px; }
+  .law-container.lvl1, .chapter-shell { padding: 20px 12px 8px; }
   .law-container.lvl2, .law-container.lvl3, .law-container.lvl4, .law-container.lvl5, .law-container.lvl6 { padding-left: 10px; }
   .chapter-general-block { margin-left: 0; }
   .article { padding: 12px 12px 14px; }
@@ -1601,10 +1604,14 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
 </nav>
 
 <div class="wrap" id="content">
+<div class="chapter-shell" id="preface" data-chapter="preface"><h2 class="law-head">Preface</h2><p class="chapter-hint">Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="preface">
 <div class="law-container lvl1" id="preface"><h2 class="law-head">Preface</h2><div class="node-body"><p> This volume marks the revival of a resolution that directs the GBC to publish an annual up-to-date corpus of the Society&#x27;s laws.  It is also a significant step on the way to the drafting of a constitution for ISKCON, which Srila Prabhupada asked the GBC to put together in the early seventies.  Finally, this volume will serve the GBC, ISKCON Leaders and all devotees as a useful source book of information in the practical affairs of executing devotional service within our institution. It is the hope of the GBC Body that the Vaisnavas in Srila Prabhupada&#x27;s great movement will be satisfied with this compilation of ISKCON Law.</p>
 <p>There may be laws that are obsolete, redundant, contradictory or poorly composed.  And there are undoubtedly areas that our laws do not cover sufficiently.  But in general, these laws are well thought out, each one representing many hours of deliberation on the part of many of the most experienced devotees in ISKCON.  To get us from this corpus to a constitution, the help of all interested devotees throughout the movement is welcome.</p>
 <p>-H.H. Suhotra Swami (GBC 2nd Vice Chairman 1997-98)</p></div></div>
-<div class="law-container lvl1" id="ch1">
+</template>
+<div class="chapter-shell" id="ch1" data-chapter="ch1"><h2 class="law-head"><span class="num">1</span> International Society for Krishna Consciousness</h2><p class="chapter-hint">2 sections, 36 added. Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="ch1"><div class="law-container lvl1" id="ch1">
   <div class="own-content">
   <h2 class="law-head"><span class="num">1</span> International Society for Krishna Consciousness</h2>
   </div>
@@ -2137,7 +2144,9 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
   <div class="source-line">Source: resolutions-2026.md | 2026</div>
 </div>
 </div>
-<div class="law-container lvl1" id="ch2">
+</template>
+<div class="chapter-shell" id="ch2" data-chapter="ch2"><h2 class="law-head"><span class="num">2</span> Srila Prabhupada, the Founder-Acarya of ISKCON</h2><p class="chapter-hint">7 sections, 2 added. Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="ch2"><div class="law-container lvl1" id="ch2">
   <div class="own-content">
   <h2 class="law-head"><span class="num">2</span> Srila Prabhupada, the Founder-Acarya of ISKCON</h2>
   </div>
@@ -2255,7 +2264,9 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
   <div class="source-line">Source: resolutions-2021.md | 2021</div>
 </div>
 </div>
-<div class="law-container lvl1" id="ch3">
+</template>
+<div class="chapter-shell" id="ch3" data-chapter="ch3"><h2 class="law-head"><span class="num">3</span> Governing Body Commission</h2><p class="chapter-hint">67 sections, 45 added. Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="ch3"><div class="law-container lvl1" id="ch3">
   <div class="own-content">
   <h2 class="law-head"><span class="num">3</span> Governing Body Commission</h2>
   </div>
@@ -3660,7 +3671,9 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
   <div class="source-line">Source: resolutions-2026.md | 2026</div>
 </div>
 </div>
-<div class="law-container lvl1" id="ch4">
+</template>
+<div class="chapter-shell" id="ch4" data-chapter="ch4"><h2 class="law-head"><span class="num">4</span> ISKCON Ministries</h2><p class="chapter-hint">32 sections, 71 added. Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="ch4"><div class="law-container lvl1" id="ch4">
   <div class="own-content">
   <h2 class="law-head"><span class="num">4</span> ISKCON Ministries</h2>
   </div>
@@ -5196,7 +5209,9 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
   <div class="source-line">Source: resolutions-2026.md | 2026</div>
 </div>
 </div>
-<div class="law-container lvl1" id="ch5">
+</template>
+<div class="chapter-shell" id="ch5" data-chapter="ch5"><h2 class="law-head"><span class="num">5</span> ISKCON Spiritual Leadership</h2><p class="chapter-hint">52 sections, 5 added. Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="ch5"><div class="law-container lvl1" id="ch5">
   <div class="own-content">
   <h2 class="law-head"><span class="num">5</span> ISKCON Spiritual Leadership</h2>
   </div>
@@ -5842,7 +5857,9 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
   <div class="source-line">Source: resolutions-2025.md | 2025</div>
 </div>
 </div>
-<div class="law-container lvl1" id="ch6">
+</template>
+<div class="chapter-shell" id="ch6" data-chapter="ch6"><h2 class="law-head"><span class="num">6</span> Discipleship in ISKCON</h2><p class="chapter-hint">24 sections. Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="ch6"><div class="law-container lvl1" id="ch6">
   <div class="own-content">
   <h2 class="law-head"><span class="num">6</span> Discipleship in ISKCON</h2>
   </div>
@@ -6081,7 +6098,9 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
 </div>
 </div>
 </div>
-<div class="law-container lvl1" id="ch7">
+</template>
+<div class="chapter-shell" id="ch7" data-chapter="ch7"><h2 class="law-head"><span class="num">7</span> ISKCON Spiritual Masters (Diksa &amp; Siksa-Gurus)</h2><p class="chapter-hint">42 sections, 18 added. Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="ch7"><div class="law-container lvl1" id="ch7">
   <div class="own-content">
   <h2 class="law-head"><span class="num">7</span> ISKCON Spiritual Masters (Diksa &amp; Siksa-Gurus)</h2>
   <div class="node-body"><p><strong>(Diksa &amp; Siksa-Gurus)</strong></p></div>
@@ -6908,7 +6927,9 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
   <div class="source-line">Source: resolutions-2026.md | 2026</div>
 </div>
 </div>
-<div class="law-container lvl1" id="ch8">
+</template>
+<div class="chapter-shell" id="ch8" data-chapter="ch8"><h2 class="law-head"><span class="num">8</span> ISKCON Members</h2><p class="chapter-hint">37 sections. Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="ch8"><div class="law-container lvl1" id="ch8">
   <div class="own-content">
   <h2 class="law-head"><span class="num">8</span> ISKCON Members</h2>
   </div>
@@ -7259,7 +7280,9 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
 </div>
 </div>
 </div>
-<div class="law-container lvl1" id="ch9">
+</template>
+<div class="chapter-shell" id="ch9" data-chapter="ch9"><h2 class="law-head"><span class="num">9</span> Asramas (Spiritual Orders) in ISKCON</h2><p class="chapter-hint">12 sections. Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="ch9"><div class="law-container lvl1" id="ch9">
   <div class="own-content">
   <h2 class="law-head"><span class="num">9</span> Asramas (Spiritual Orders) in ISKCON</h2>
   </div>
@@ -7423,7 +7446,9 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
   </div>
 </div>
 </div>
-<div class="law-container lvl1" id="ch10">
+</template>
+<div class="chapter-shell" id="ch10" data-chapter="ch10"><h2 class="law-head"><span class="num">10</span> ISKCON Temples and Affiliates</h2><p class="chapter-hint">19 sections. Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="ch10"><div class="law-container lvl1" id="ch10">
   <div class="own-content">
   <h2 class="law-head"><span class="num">10</span> ISKCON Temples and Affiliates</h2>
   </div>
@@ -7591,7 +7616,9 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
 </div>
 </div>
 </div>
-<div class="law-container lvl1" id="ch11">
+</template>
+<div class="chapter-shell" id="ch11" data-chapter="ch11"><h2 class="law-head"><span class="num">11</span> ISKCON Immovable Properties</h2><p class="chapter-hint">22 sections, 7 added. Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="ch11"><div class="law-container lvl1" id="ch11">
   <div class="own-content">
   <h2 class="law-head"><span class="num">11</span> ISKCON Immovable Properties</h2>
   </div>
@@ -7992,7 +8019,9 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
   <div class="source-line">Source: resolutions-2026.md | 2026</div>
 </div>
 </div>
-<div class="law-container lvl1" id="ch12">
+</template>
+<div class="chapter-shell" id="ch12" data-chapter="ch12"><h2 class="law-head"><span class="num">12</span> Temple Worship and Deity Worship</h2><p class="chapter-hint">12 sections. Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="ch12"><div class="law-container lvl1" id="ch12">
   <div class="own-content">
   <h2 class="law-head"><span class="num">12</span> Temple Worship and Deity Worship</h2>
   </div>
@@ -8129,7 +8158,9 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
 </div>
 </div>
 </div>
-<div class="law-container lvl1" id="ch13">
+</template>
+<div class="chapter-shell" id="ch13" data-chapter="ch13"><h2 class="law-head"><span class="num">13</span> Education</h2><p class="chapter-hint">7 sections. Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="ch13"><div class="law-container lvl1" id="ch13">
   <div class="own-content">
   <h2 class="law-head"><span class="num">13</span> Education</h2>
   </div>
@@ -8218,7 +8249,9 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
 </div>
 </div>
 </div>
-<div class="law-container lvl1" id="ch14">
+</template>
+<div class="chapter-shell" id="ch14" data-chapter="ch14"><h2 class="law-head"><span class="num">14</span> Sankirtana - Book Distribution</h2><p class="chapter-hint">8 sections. Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="ch14"><div class="law-container lvl1" id="ch14">
   <div class="own-content">
   <h2 class="law-head"><span class="num">14</span> Sankirtana - Book Distribution</h2>
   </div>
@@ -8299,7 +8332,9 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
   </div>
 </div>
 </div>
-<div class="law-container lvl1" id="ch15">
+</template>
+<div class="chapter-shell" id="ch15" data-chapter="ch15"><h2 class="law-head"><span class="num">15</span> Congregational Development</h2><p class="chapter-hint">15 sections. Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="ch15"><div class="law-container lvl1" id="ch15">
   <div class="own-content">
   <h2 class="law-head"><span class="num">15</span> Congregational Development</h2>
   </div>
@@ -8429,7 +8464,9 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
 </div>
 </div>
 </div>
-<div class="law-container lvl1" id="ch16">
+</template>
+<div class="chapter-shell" id="ch16" data-chapter="ch16"><h2 class="law-head"><span class="num">16</span> Prasadam Distribution</h2><p class="chapter-hint">3 sections. Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="ch16"><div class="law-container lvl1" id="ch16">
   <div class="own-content">
   <h2 class="law-head"><span class="num">16</span> Prasadam Distribution</h2>
   </div>
@@ -8463,7 +8500,9 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
 </div>
 </div>
 </div>
-<div class="law-container lvl1" id="ch17">
+</template>
+<div class="chapter-shell" id="ch17" data-chapter="ch17"><h2 class="law-head"><span class="num">17</span> Justice</h2><p class="chapter-hint">2 sections. Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="ch17"><div class="law-container lvl1" id="ch17">
   <div class="own-content">
   <h2 class="law-head"><span class="num">17</span> Justice</h2>
   </div>
@@ -8490,7 +8529,9 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
 </div>
 </div>
 </div>
-<div class="law-container lvl1" id="ch18">
+</template>
+<div class="chapter-shell" id="ch18" data-chapter="ch18"><h2 class="law-head"><span class="num">18</span> Fund Development and Life Patron Membership</h2><p class="chapter-hint">2 sections. Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="ch18"><div class="law-container lvl1" id="ch18">
   <div class="own-content">
   <h2 class="law-head"><span class="num">18</span> Fund Development and Life Patron Membership</h2>
   </div>
@@ -8509,7 +8550,9 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
   </div>
 </div>
 </div>
-<div class="law-container lvl1" id="ch19">
+</template>
+<div class="chapter-shell" id="ch19" data-chapter="ch19"><h2 class="law-head"><span class="num">19</span> Devotee Health and Welfare</h2><p class="chapter-hint">4 sections. Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="ch19"><div class="law-container lvl1" id="ch19">
   <div class="own-content">
   <h2 class="law-head"><span class="num">19</span> Devotee Health and Welfare</h2>
   </div>
@@ -8555,7 +8598,9 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
   </div>
 </div>
 </div>
-<div class="law-container lvl1" id="ch20">
+</template>
+<div class="chapter-shell" id="ch20" data-chapter="ch20"><h2 class="law-head"><span class="num">20</span> Farm Communities</h2><p class="chapter-hint">1 section. Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="ch20"><div class="law-container lvl1" id="ch20">
   <div class="own-content">
   <h2 class="law-head"><span class="num">20</span> Farm Communities</h2>
   </div>
@@ -8567,7 +8612,9 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
   </div>
 </div>
 </div>
-<div class="law-container lvl1" id="ch21">
+</template>
+<div class="chapter-shell" id="ch21" data-chapter="ch21"><h2 class="law-head"><span class="num">21</span> International Projects</h2><p class="chapter-hint">15 sections. Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="ch21"><div class="law-container lvl1" id="ch21">
   <div class="own-content">
   <h2 class="law-head"><span class="num">21</span> International Projects</h2>
   </div>
@@ -8729,7 +8776,9 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
 </div>
 </div>
 </div>
-<div class="law-container lvl1" id="ch22">
+</template>
+<div class="chapter-shell" id="ch22" data-chapter="ch22"><h2 class="law-head"><span class="num">22</span> Sri Mayapur-Vrndavana Gaura-purnima Festival</h2><p class="chapter-hint">8 sections. Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="ch22"><div class="law-container lvl1" id="ch22">
   <div class="own-content">
   <h2 class="law-head"><span class="num">22</span> Sri Mayapur-Vrndavana Gaura-purnima Festival</h2>
   </div>
@@ -8810,7 +8859,9 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
   </div>
 </div>
 </div>
-<div class="law-container lvl1" id="ch23">
+</template>
+<div class="chapter-shell" id="ch23" data-chapter="ch23"><h2 class="law-head"><span class="num">23</span> ISKCON Related Organizations</h2><p class="chapter-hint">7 sections. Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="ch23"><div class="law-container lvl1" id="ch23">
   <div class="own-content">
   <h2 class="law-head"><span class="num">23</span> ISKCON Related Organizations</h2>
   </div>
@@ -8882,7 +8933,9 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
   </div>
 </div>
 </div>
-<div class="law-container lvl1" id="bm1">
+</template>
+<div class="chapter-shell" id="bm1" data-chapter="bm1"><h2 class="law-head">Annual Personal Financial Reporting (2000)</h2><p class="chapter-hint">1 section. Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="bm1"><div class="law-container lvl1" id="bm1">
   <div class="own-content">
   <h2 class="law-head">Annual Personal Financial Reporting (2000)</h2>
   <div class="node-body"><p>All GBC Body Members, gurus, sannyasis, and international project directors are required to file annual personal financial reports to the Executive Committee of the GBC Body and where requested, their National Executive Body.  These reports shall contain a standard income statement and balance-sheet (to be reported in quick books or other standard software format).  The report should also include a list of all ISKCON-related bank accounts (including Account Name, Signers, and Balance) for which these individuals are a signer or have some control.  All guru-daksina must be included in this report.</p>
@@ -8896,13 +8949,17 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
 <p>The Executive Committee shall provide an annual report for the GBC Body prior to the annual meetings containing information on the number of GBC Body members filing, names of those not filing, and a summary report of the financial data including high, low and median numbers for income, assets and expenses.</p></div>
   </div>
 </div>
-<div class="law-container lvl1" id="bm2">
+</template>
+<div class="chapter-shell" id="bm2" data-chapter="bm2"><h2 class="law-head">24. ISKCON Global Excellence Awards</h2><p class="chapter-hint">1 section. Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="bm2"><div class="law-container lvl1" id="bm2">
   <div class="own-content">
   <h2 class="law-head">24. ISKCON Global Excellence Awards</h2>
   <div class="node-body"><p>“Global Excellence Awards” be established to recognize outstanding conributions with ISKCON.  The purpose of the awards is to recognize excellence in the field of devotional service and to encourage devotion in the various aspects and fields of Krsna conscious activities.</p></div>
   </div>
 </div>
-<div class="law-container lvl1" id="bm3">
+</template>
+<div class="chapter-shell" id="bm3" data-chapter="bm3"><h2 class="law-head">25. Miscellaneous / Appendices</h2><p class="chapter-hint">12 sections. Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="bm3"><div class="law-container lvl1" id="bm3">
   <div class="own-content">
   <h2 class="law-head">25. Miscellaneous / Appendices</h2>
   </div>
@@ -9261,7 +9318,9 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
 </div>
 </div>
 </div>
-<section class="law-container lvl1" id="new-subject-areas">
+</template>
+<div class="chapter-shell" id="new-subject-areas" data-chapter="new-subject-areas"><h2 class="law-head">New subject areas since 2018</h2><p class="chapter-hint">85 sections. Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="new-subject-areas"><section class="law-container lvl1" id="new-subject-areas">
   <h2 class="law-head">New subject areas since 2018</h2>
   <p class="node-body">The 85 resolutions below could not be confidently placed in any 2018 book chapter &mdash; either because their modern Section is genuinely cross-cutting (Section 800, Appointments, has no single chapter home in this book either, the same conclusion already reached for the 1997-skeleton build), or because they concern subject matter the book does not address at all. Grouped by the GBC's own modern Section 100&ndash;900 category.</p>
   <div class="law-container lvl2" id="nsa-800"><h3 class="law-head">Section 800: Appointments <span class="count">(85)</span></h3>
@@ -10342,7 +10401,9 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
   </div>
 </section>
 
-<section class="law-container lvl1 no-hide" id="crosswalk">
+</template>
+<div class="chapter-shell" id="crosswalk" data-chapter="crosswalk"><h2 class="law-head">Appendix &mdash; Modern Section/code &harr; Book chapter/section crosswalk</h2><p class="chapter-hint">Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="crosswalk"><section class="law-container lvl1 no-hide" id="crosswalk">
   <h2 class="law-head">Appendix &mdash; Modern Section/code &harr; Book chapter/section crosswalk</h2>
   <div class="node-body">
   <p>The GBC's modern Section 100&ndash;900 / <span style="font-family:var(--mono)">NNN.NN</span> resolution-coding
@@ -10391,7 +10452,9 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
 </section>
 
 
-<section class="law-container lvl1 no-hide" id="what-this-is">
+</template>
+<div class="chapter-shell" id="what-this-is" data-chapter="what-this-is"><h2 class="law-head">What this is</h2><p class="chapter-hint">Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="what-this-is"><section class="law-container lvl1 no-hide" id="what-this-is">
   <h2 class="law-head">What this is</h2>
   <div class="notice">
     <p><strong>This is an automatically generated working draft, not an authoritative ISKCON Law Book.</strong>
@@ -10417,7 +10480,9 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
   </div>
 </section>
 
-<section class="law-container lvl1 no-hide" id="methodology">
+</template>
+<div class="chapter-shell" id="methodology" data-chapter="methodology"><h2 class="law-head">Methodology &amp; honest limitations</h2><p class="chapter-hint">Opens when you scroll here, search, or follow a link.</p></div>
+<template class="chapter-src" data-chapter="methodology"><section class="law-container lvl1 no-hide" id="methodology">
   <h2 class="law-head">Methodology &amp; honest limitations</h2>
   <div class="methodology">
     <ul>
@@ -10511,71 +10576,111 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
   269 GBC resolutions, 2019&ndash;2026. This file is fully self-contained (no
   external network requests) and searches entirely in your browser.</p>
 </footer>
+</template>
 </div>
 
 <script>
 (function() {
-  var items = null;
-  // Searchable LEAF units: .article (an "Added" resolution block) PLUS
-  // .own-content (one book node's own heading+text, EXCLUDING any nested
-  // child sections). Together these cover the WHOLE document, book text
-  // and additions alike. UNCHANGED from v5 -- the v6 TOC restructuring
-  // below never touches #content or this indexing.
-  function build() {
-    items = Array.prototype.map.call(document.querySelectorAll('.article, .own-content'), function(el) {
-      return { el: el, text: el.textContent.toLowerCase() };
-    });
-  }
-  function doSearch() {
-    if (!items) build();
-    var q = document.getElementById('searchInput').value.trim().toLowerCase();
-    var terms = q.split(/\s+/).filter(Boolean);
-    var shown = 0;
-    items.forEach(function(it) {
-      var match = terms.length === 0 || terms.every(function(t) { return it.text.indexOf(t) !== -1; });
-      it.el.classList.toggle('hidden', !match);
-      if (match) shown++;
-    });
-    document.querySelectorAll('.law-container').forEach(function(c) {
-      if (terms.length === 0 || c.classList.contains('no-hide')) { c.classList.remove('hidden'); return; }
-      var hasVisible = c.querySelector('.article:not(.hidden), .own-content:not(.hidden)') !== null;
-      c.classList.toggle('hidden', !hasVisible);
-    });
-    document.querySelectorAll('.chapter-general-block').forEach(function(c) {
-      if (terms.length === 0) { c.classList.remove('hidden'); return; }
-      var hasVisible = c.querySelector('.article:not(.hidden)') !== null;
-      c.classList.toggle('hidden', !hasVisible);
-    });
-    var total = document.querySelectorAll('.article').length;
-    document.getElementById('resultCount').textContent = terms.length ? (shown + ' of ' + items.length + ' sections/entries match') : (total + ' entries total');
-  }
-  document.getElementById('searchInput').addEventListener('input', doSearch);
-  document.getElementById('clearBtn').addEventListener('click', function() {
-    document.getElementById('searchInput').value = '';
-    doSearch();
+  var UNIT = '.article, .own-content';
+  var VISIBLE = '.article:not(.hidden), .own-content:not(.hidden)';
+  var input = document.getElementById('searchInput');
+  var chapters = [], idToChapter = {}, terms = [], articles = 0;
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) expand(idToChapter[e.target.id], false); });
+  }, { rootMargin: '600px 0px' });
+
+  Array.prototype.forEach.call(document.querySelectorAll('template.chapter-src'), function(t) {
+    var ch = {
+      id: t.dataset.chapter, template: t, shell: document.getElementById(t.dataset.chapter), live: null, bySearch: false,
+      noHide: t.content.querySelector('.law-container.lvl1').classList.contains('no-hide'),
+      units: Array.prototype.map.call(t.content.querySelectorAll(UNIT), function(el) {
+        return { text: el.textContent.toLowerCase(), match: true };
+      })
+    };
+    Array.prototype.forEach.call(t.content.querySelectorAll('[id]'), function(el) { idToChapter[el.id] = ch; });
+    articles += t.content.querySelectorAll('.article').length;
+    chapters.push(ch);
+    observer.observe(ch.shell);
   });
 
-  // REQUIREMENT B: Expand all / Collapse all -- toggles the native `open`
-  // attribute on every top-level TOC <details>. No effect on search (the
-  // TOC is entirely outside #content).
+  function elements(ch, selector) {
+    var out = [];
+    ch.live.forEach(function(n) {
+      if (n.nodeType !== 1) return;
+      if (n.matches(selector)) out.push(n);
+      out.push.apply(out, n.querySelectorAll(selector));
+    });
+    return out;
+  }
+  function filter(ch) {
+    var units = elements(ch, UNIT);
+    ch.units.forEach(function(u, i) { units[i].classList.toggle('hidden', !u.match); });
+    elements(ch, '.law-container').forEach(function(c) {
+      c.classList.toggle('hidden', terms.length > 0 && !c.classList.contains('no-hide') && !c.querySelector(VISIBLE));
+    });
+    elements(ch, '.chapter-general-block').forEach(function(c) {
+      c.classList.toggle('hidden', terms.length > 0 && !c.querySelector('.article:not(.hidden)'));
+    });
+  }
+  function expand(ch, bySearch) {
+    if (!ch.live) {
+      var clone = document.importNode(ch.template.content, true);
+      ch.live = Array.prototype.slice.call(clone.childNodes);
+      ch.shell.replaceWith(clone);
+      ch.bySearch = true;
+      if (terms.length) filter(ch);
+    }
+    ch.bySearch = ch.bySearch && bySearch;
+  }
+  function collapse(ch) {
+    if (!ch.live) return;
+    ch.live[0].parentNode.insertBefore(ch.shell, ch.live[0]);
+    ch.live.forEach(function(n) { n.parentNode.removeChild(n); });
+    ch.live = null;
+    ch.bySearch = false;
+    observer.observe(ch.shell);
+  }
+  function search() {
+    terms = input.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    var shown = 0, total = 0;
+    chapters.forEach(function(ch) {
+      var hits = 0, wasLive = !!ch.live;
+      ch.units.forEach(function(u) {
+        u.match = terms.every(function(t) { return u.text.indexOf(t) !== -1; });
+        if (u.match) hits++;
+      });
+      shown += hits;
+      total += ch.units.length;
+      if (!terms.length) { ch.shell.classList.remove('hidden'); if (ch.bySearch) collapse(ch); }
+      else if (hits) expand(ch, true);
+      else if (!ch.noHide) { collapse(ch); ch.shell.classList.add('hidden'); }
+      if (wasLive && ch.live) filter(ch);
+    });
+    document.getElementById('resultCount').textContent = terms.length ? (shown + ' of ' + total + ' sections/entries match') : (articles + ' entries total');
+  }
+  function follow() {
+    var id = decodeURIComponent(location.hash.slice(1));
+    var ch = idToChapter[id];
+    if (!ch) return;
+    expand(ch, false);
+    document.getElementById(id).scrollIntoView();
+  }
+
+  input.addEventListener('input', search);
+  document.getElementById('clearBtn').addEventListener('click', function() { input.value = ''; search(); });
   document.getElementById('expandAllBtn').addEventListener('click', function() {
     document.querySelectorAll('#tocNav details').forEach(function(d) { d.open = true; });
   });
   document.getElementById('collapseAllBtn').addEventListener('click', function() {
     document.querySelectorAll('#tocNav details').forEach(function(d) { d.open = false; });
   });
-
-  document.addEventListener('DOMContentLoaded', function() { build(); doSearch(); });
-})();
-</script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
+  window.addEventListener('hashchange', follow);
+  window.addEventListener('beforeprint', function() { chapters.forEach(function(ch) { expand(ch, false); }); });
   var q = new URLSearchParams(location.search).get('q');
-  if (!q) return;
-  var input = document.getElementById('searchInput');
-  input.value = q;
-  input.dispatchEvent(new Event('input'));
-});
+  if (q) input.value = q;
+  search();
+  follow();
+})();
 </script>
 </body>
 </html>
