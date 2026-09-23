@@ -29,6 +29,12 @@ python tools/build_book.py --standalone D:/path/to/iskcon-law-draft.html
 
 The script reads the original from the same default path as the check and takes another path as its first argument.
 
+## Highlighting search matches
+
+When a search matches, every occurrence of the search words inside the matching sections is marked in yellow, and a small counter appears next to the result count: `1 / 38` with up and down arrows. The arrows, Enter and Shift+Enter move to the next or previous mark; the current one is orange and scrolled to the middle of the screen. A link with `?q=` (for example `book.html?q=child%20protection`, used on slide 9 of the ELM talk) opens the page already on the first mark.
+
+Two limits keep typing fast: words shorter than 3 letters are not marked, and nothing is marked when more than 500 sections match (the counter then says so). The marks live only in the opened chapters; the chapter templates stay byte-identical to the original, which `check.py` still verifies.
+
 ## Rerunning the check
 
 ```
@@ -37,6 +43,6 @@ python tools/check.py
 
 It prints one line per check and exits with code 1 on any failure. It checks that the chapter templates in `book.html`, concatenated, are byte-identical to the inner HTML of the generated original's `<div id="content">`, that at most 2,000 elements sit outside the templates (what the browser builds at load), that no `src`, `<link href>`, `@import` or `url()` points to an `http(s)://` address, that every local link on both pages resolves to a file, that `.nojekyll` exists, and it prints the file sizes.
 
-The original is read from `D:\AI_OS\Repos\personal\elm-ai-presentation\law-book-output\00 iskcon-law-v6-2018-2026.html` by default. Pass another path as the first argument to compare against a different copy.
+The original is read from `D:\AI_OS\Repos\personal\elm-ai-presentation\law-book-output\archive\00 iskcon-law-v6-2018-2026.html` by default. Pass another path as the first argument to compare against a different copy.
 
 Browser checks (no horizontal scrolling at 390 px, search counts, console errors) are run by hand with Playwright against a local `python -m http.server`.
