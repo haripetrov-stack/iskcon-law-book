@@ -5,7 +5,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 ORIGINAL = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(
-    'D:/AI_OS/Repos/personal/elm-ai-presentation/law-book-output/00 iskcon-law-v6-2018-2026.html')
+    'D:/AI_OS/Repos/personal/elm-ai-presentation/law-book-output/archive/00 iskcon-law-v6-2018-2026.html')
 PAGES = ['index.html', 'book.html']
 SIZED = ['index.html', 'book.html', 'iskcon-law-draft-2018-2026.pdf', 'tools/check.py']
 

@@ -123,6 +123,12 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
   table.crosswalk-table > tbody { width: 100%; min-width: 36rem; }
   footer.build { padding: 24px 16px 40px; }
 }
+mark.hit { background: #FFE58A; color: inherit; padding: 0 1px; border-radius: 2px; }
+mark.hit.current { background: #F5A623; box-shadow: 0 0 0 2px #C38A24; }
+.hitnav { display: inline-flex; align-items: center; gap: 6px; font-size: 0.88em; color: var(--muted); white-space: nowrap; }
+.hitnav[hidden] { display: none; }
+.searchbar .hitnav button { padding: 4px 10px; }
+@media print { mark.hit, mark.hit.current { background: none; box-shadow: none; } }
 </style>
 </head>
 <body>
@@ -10587,6 +10593,17 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
   var VISIBLE = '.article:not(.hidden), .own-content:not(.hidden)';
   var input = document.getElementById('searchInput');
   var chapters = [], idToChapter = {}, terms = [], articles = 0;
+  // Маркирането се пропуска при над MAX_MARKED съвпадащи раздела или думи под 3
+  // знака: иначе първата буква в полето би маркирала десетки хиляди места.
+  var MAX_MARKED = 500, marked = [], marks = [], cur = -1, highlight = false;
+  var nav = document.createElement('span');
+  nav.className = 'hitnav';
+  nav.hidden = true;
+  nav.innerHTML = '<button type="button" id="hitPrev" title="Previous match (Shift+Enter)">&#8593;</button>'
+    + '<span id="hitPos"></span>'
+    + '<button type="button" id="hitNext" title="Next match (Enter)">&#8595;</button>';
+  document.getElementById('resultCount').insertAdjacentElement('afterend', nav);
+  var pos = document.getElementById('hitPos');
   var observer = new IntersectionObserver(function(entries) {
     var near = entries.filter(function(e) { return e.isIntersecting; }).sort(function(a, b) {
       return a.boundingClientRect.top - b.boundingClientRect.top;
@@ -10628,6 +10645,58 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
     elements(ch, '.chapter-general-block').forEach(function(c) {
       c.classList.toggle('hidden', terms.length > 0 && !c.querySelector('.article:not(.hidden)'));
     });
+    ch.live.forEach(function(n) { if (n.nodeType === 1) clearMarks(n); });
+    if (highlight) ch.units.forEach(function(u, i) { if (u.match) markIn(units[i]); });
+  }
+  function clearMarks(root) {
+    Array.prototype.forEach.call(root.querySelectorAll('mark.hit'), function(m) {
+      var parent = m.parentNode;
+      parent.replaceChild(document.createTextNode(m.textContent), m);
+      parent.normalize();
+    });
+  }
+  function markIn(el) {
+    var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null), nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(function(node) {
+      var text = node.nodeValue, low = text.toLowerCase(), ranges = [], merged = [];
+      marked.forEach(function(t) {
+        for (var i = low.indexOf(t); i !== -1; i = low.indexOf(t, i + t.length)) ranges.push([i, i + t.length]);
+      });
+      if (!ranges.length) return;
+      ranges.sort(function(a, b) { return a[0] - b[0] || b[1] - a[1]; });
+      ranges.forEach(function(r) {
+        var last = merged[merged.length - 1];
+        if (last && r[0] <= last[1]) last[1] = Math.max(last[1], r[1]); else merged.push(r.slice());
+      });
+      var frag = document.createDocumentFragment(), at = 0;
+      merged.forEach(function(r) {
+        if (r[0] > at) frag.appendChild(document.createTextNode(text.slice(at, r[0])));
+        var m = document.createElement('mark');
+        m.className = 'hit';
+        m.textContent = text.slice(r[0], r[1]);
+        frag.appendChild(m);
+        at = r[1];
+      });
+      if (at < text.length) frag.appendChild(document.createTextNode(text.slice(at)));
+      node.parentNode.replaceChild(frag, node);
+    });
+  }
+  function refreshNav() {
+    marks = Array.prototype.slice.call(document.querySelectorAll('mark.hit'));
+    cur = -1;
+    nav.hidden = !terms.length;
+    if (!terms.length) pos.textContent = '';
+    else if (!highlight) pos.textContent = marked.length ? 'too many to highlight' : 'type 3+ letters to highlight';
+    else pos.textContent = marks.length ? ('0 / ' + marks.length) : '';
+  }
+  function go(step) {
+    if (!marks.length) return;
+    if (cur >= 0) marks[cur].classList.remove('current');
+    cur = (cur + step + marks.length) % marks.length;
+    marks[cur].classList.add('current');
+    marks[cur].scrollIntoView({ block: 'center' });
+    pos.textContent = (cur + 1) + ' / ' + marks.length;
   }
   function expand(ch, bySearch) {
     if (!ch.live) {
@@ -10651,19 +10720,25 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
     terms = input.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
     var shown = 0, total = 0;
     chapters.forEach(function(ch) {
-      var hits = 0, wasLive = !!ch.live;
+      ch.hits = 0;
       ch.units.forEach(function(u) {
         u.match = terms.every(function(t) { return u.text.indexOf(t) !== -1; });
-        if (u.match) hits++;
+        if (u.match) ch.hits++;
       });
-      shown += hits;
+      shown += ch.hits;
       total += ch.units.length;
+    });
+    marked = terms.filter(function(t) { return t.length >= 3; });
+    highlight = marked.length > 0 && shown <= MAX_MARKED;
+    chapters.forEach(function(ch) {
+      var wasLive = !!ch.live;
       if (!terms.length) { ch.shell.classList.remove('hidden'); if (ch.bySearch) collapse(ch); }
-      else if (hits) expand(ch, true);
+      else if (ch.hits) expand(ch, true);
       else if (!ch.noHide) { collapse(ch); ch.shell.classList.add('hidden'); }
       if (wasLive && ch.live) filter(ch);
     });
     document.getElementById('resultCount').textContent = terms.length ? (shown + ' of ' + total + ' sections/entries match') : (articles + ' entries total');
+    refreshNav();
   }
   function follow() {
     var id = decodeURIComponent(location.hash.slice(1));
@@ -10683,10 +10758,17 @@ footer.build { font-family: var(--sans); font-size:0.8em; color:var(--muted); pa
   });
   window.addEventListener('hashchange', follow);
   window.addEventListener('beforeprint', function() { chapters.forEach(function(ch) { expand(ch, false); }); });
+  document.getElementById('hitNext').addEventListener('click', function() { go(1); });
+  document.getElementById('hitPrev').addEventListener('click', function() { go(-1); });
+  input.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') { e.preventDefault(); go(e.shiftKey ? -1 : 1); }
+  });
   var q = new URLSearchParams(location.search).get('q');
   if (q) input.value = q;
   search();
   follow();
+  // дошъл от връзка с дума: веднага към първото маркирано място
+  if (q && !location.hash) go(1);
 })();
 </script>
 </body>
